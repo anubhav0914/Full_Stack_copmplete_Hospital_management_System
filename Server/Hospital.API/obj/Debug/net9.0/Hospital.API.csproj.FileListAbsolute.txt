@@ -180,3 +180,7 @@
 /home/anubhav/Coplur_Course/Complete_Hospital_management_system/Server/Hospital.API/obj/Debug/net9.0/Hospital.API.genruntimeconfig.cache
 /home/anubhav/Coplur_Course/Complete_Hospital_management_system/Server/Hospital.API/obj/Debug/net9.0/ref/Hospital.API.dll
 /home/anubhav/Coplur_Course/Complete_Hospital_management_system/Server/Hospital.API/bin/Debug/net9.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/home/anubhav/Coplur_Course/Complete_Hospital_management_system/Server/Hospital.API/obj/Debug/net9.0/Hospital.API.sourcelink.json
+/home/anubhav/Coplur_Course/Complete_Hospital_management_system/Server/Hospital.API/bin/Debug/net9.0/BouncyCastle.Cryptography.dll
+/home/anubhav/Coplur_Course/Complete_Hospital_management_system/Server/Hospital.API/bin/Debug/net9.0/MailKit.dll
+/home/anubhav/Coplur_Course/Complete_Hospital_management_system/Server/Hospital.API/bin/Debug/net9.0/MimeKit.dll

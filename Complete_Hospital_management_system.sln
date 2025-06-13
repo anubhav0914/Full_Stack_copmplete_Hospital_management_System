@@ -1,0 +1,43 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{DAD03CFC-D5FA-AC94-41C7-9ABAB326F09E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hospital.Persistence", "Server\Hospital.Persistence\Hospital.Persistence.csproj", "{61B1DA7E-DBD0-6EB7-5C1F-B9B6418692D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hospital.API", "Server\Hospital.API\Hospital.API.csproj", "{D5CBEF47-1A7F-0A6C-C063-5F1F0805A1CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hospital.Bussiness", "Server\Hospital.Bussiness\Hospital.Bussiness.csproj", "{340485FB-C283-7013-6DDB-1419EF317C41}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{61B1DA7E-DBD0-6EB7-5C1F-B9B6418692D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61B1DA7E-DBD0-6EB7-5C1F-B9B6418692D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61B1DA7E-DBD0-6EB7-5C1F-B9B6418692D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61B1DA7E-DBD0-6EB7-5C1F-B9B6418692D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5CBEF47-1A7F-0A6C-C063-5F1F0805A1CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5CBEF47-1A7F-0A6C-C063-5F1F0805A1CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5CBEF47-1A7F-0A6C-C063-5F1F0805A1CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5CBEF47-1A7F-0A6C-C063-5F1F0805A1CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{340485FB-C283-7013-6DDB-1419EF317C41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{340485FB-C283-7013-6DDB-1419EF317C41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{340485FB-C283-7013-6DDB-1419EF317C41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{340485FB-C283-7013-6DDB-1419EF317C41}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{61B1DA7E-DBD0-6EB7-5C1F-B9B6418692D6} = {DAD03CFC-D5FA-AC94-41C7-9ABAB326F09E}
+		{D5CBEF47-1A7F-0A6C-C063-5F1F0805A1CB} = {DAD03CFC-D5FA-AC94-41C7-9ABAB326F09E}
+		{340485FB-C283-7013-6DDB-1419EF317C41} = {DAD03CFC-D5FA-AC94-41C7-9ABAB326F09E}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2A66B535-B8CD-4502-A9E2-86DBA57A1E56}
+	EndGlobalSection
+EndGlobal

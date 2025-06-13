@@ -8,6 +8,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 using System.Text;
+using Hospital.Business.DTOs;
+using Hpospital.Bussiness.Services.MailServices;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +17,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddControllers();
 builder.Services.AddAuthorization();
+builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
+builder.Services.AddScoped<IMailService, MailService>();
+
 builder.Services.AddScoped<IPatientServices, PatientServices>();
 builder.Services.AddScoped<IDoctorServices, DoctorServices>();
 builder.Services.AddScoped<IAppointmentServices, AppointmentServices>();

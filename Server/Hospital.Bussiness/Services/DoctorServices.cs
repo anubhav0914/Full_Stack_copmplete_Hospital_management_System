@@ -8,6 +8,7 @@ using System.Text;
 using System.IdentityModel.Tokens.Jwt;
 
 using System.Security.Claims;
+using Hpospital.Bussiness.Services.MailServices;
 
 
 namespace Hospital.Bussiness.Services
@@ -18,12 +19,16 @@ namespace Hospital.Bussiness.Services
 
         private readonly IDoctorRepository _doctorRepository;
         private readonly IDepartmentRepository _departmentRepository;
+        private readonly IMailService _mailService;
 
 
-        public DoctorServices(IDoctorRepository doctorRepository, IDepartmentRepository departmentRepository)
+
+        public DoctorServices(IDoctorRepository doctorRepository, IDepartmentRepository departmentRepository, IMailService mailService)
         {
             _doctorRepository = doctorRepository;
             _departmentRepository = departmentRepository;
+             _mailService = mailService;
+
         }
 
         public async Task<APIResponse<DoctorDTO>> RegisterDoctor(DoctorRequestDTO reqModel)
@@ -78,6 +83,8 @@ namespace Hospital.Bussiness.Services
                         await _departmentRepository.UpdateAsync(department);
                     }
                 }
+                var emailed = await _mailService.SendEmailDoctorAsync(reqModel.Email,reqModel.Password,reqModel.FirstName+" "+reqModel.LastName);
+               
                 return new APIResponse<DoctorDTO>
                 {
                     Status = true,

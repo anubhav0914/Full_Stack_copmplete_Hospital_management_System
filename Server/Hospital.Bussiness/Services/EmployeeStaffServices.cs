@@ -8,6 +8,7 @@ using System.Text;
 using System.IdentityModel.Tokens.Jwt;
 
 using System.Security.Claims;
+using Hpospital.Bussiness.Services.MailServices;
 
 
 namespace Hospital.Bussiness.Services
@@ -18,12 +19,16 @@ namespace Hospital.Bussiness.Services
 
         private readonly IEmployeeStaffRepository _employeeStaffRepository;
         private readonly IDepartmentRepository _departmentRepository;
+        private readonly IMailService _mailService;
 
 
-        public EmployeeStaffServices(IEmployeeStaffRepository employeeStaffRepository, IDepartmentRepository departmentRepository)
+        public EmployeeStaffServices(IEmployeeStaffRepository employeeStaffRepository,
+        IDepartmentRepository departmentRepository,
+        IMailService mailService)
         {
             _employeeStaffRepository = employeeStaffRepository;
             _departmentRepository = departmentRepository;
+            _mailService = mailService;
 
         }
 
@@ -79,6 +84,7 @@ namespace Hospital.Bussiness.Services
                         await _departmentRepository.UpdateAsync(department);
                     }
                 }
+                 var emailed = await _mailService.SendEmailEmployeeAsync(reqModel.Email,reqModel.Password,reqModel.FirstName+" "+reqModel.LastName,reqModel.Role);
 
                 return new APIResponse<EmployeeStaffDTO>
                 {

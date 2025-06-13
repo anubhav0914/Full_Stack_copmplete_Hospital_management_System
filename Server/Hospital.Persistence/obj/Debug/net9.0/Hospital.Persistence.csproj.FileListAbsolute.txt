@@ -82,3 +82,4 @@
 /home/anubhav/Coplur_Course/Complete_Hospital_management_system/Server/Hospital.Persistence/obj/Debug/net9.0/Hospital.Persistence.genruntimeconfig.cache
 /home/anubhav/Coplur_Course/Complete_Hospital_management_system/Server/Hospital.Persistence/obj/Debug/net9.0/ref/Hospital.Persistence.dll
 /home/anubhav/Coplur_Course/Complete_Hospital_management_system/Server/Hospital.Persistence/bin/Debug/net9.0/BCrypt.Net-Next.dll
+/home/anubhav/Coplur_Course/Complete_Hospital_management_system/Server/Hospital.Persistence/obj/Debug/net9.0/Hospital.Persistence.sourcelink.json

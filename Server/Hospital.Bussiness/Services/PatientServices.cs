@@ -8,6 +8,7 @@ using System.Text;
 using System.IdentityModel.Tokens.Jwt;
 
 using System.Security.Claims;
+using Hpospital.Bussiness.Services.MailServices;
 
 
 namespace Hospital.Bussiness.Services
@@ -18,11 +19,13 @@ namespace Hospital.Bussiness.Services
 
         private readonly IPatientRepository _patientRepository;
         private readonly ITokenServices _tokenServices;
+        private readonly IMailService _mailService;
 
-        public PatientServices(IPatientRepository patinetRepository, ITokenServices tokenServices)
+        public PatientServices(IPatientRepository patinetRepository, ITokenServices tokenServices, IMailService mailService)
         {
             _patientRepository = patinetRepository;
             _tokenServices = tokenServices;
+            _mailService = mailService;
         }
 
         public async Task<APIResponse<PatientDTO>> Register(PatientRequestDTO reqModel)
@@ -70,6 +73,7 @@ namespace Hospital.Bussiness.Services
                     };
                 }
 
+                await _mailService.SendEmailPatientAsync(reqModel.Email, reqModel.FirstName+" "+reqModel.LastName);
                 return new APIResponse<PatientDTO>
                 {
                     Status = true,

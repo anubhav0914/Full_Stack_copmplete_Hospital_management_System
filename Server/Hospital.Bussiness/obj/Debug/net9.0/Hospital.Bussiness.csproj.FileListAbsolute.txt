@@ -89,3 +89,7 @@
 /home/anubhav/Coplur_Course/Complete_Hospital_management_system/Server/Hospital.Bussiness/obj/Debug/net9.0/Hospital.Bussiness.genruntimeconfig.cache
 /home/anubhav/Coplur_Course/Complete_Hospital_management_system/Server/Hospital.Bussiness/obj/Debug/net9.0/ref/Hospital.Bussiness.dll
 /home/anubhav/Coplur_Course/Complete_Hospital_management_system/Server/Hospital.Bussiness/bin/Debug/net9.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/home/anubhav/Coplur_Course/Complete_Hospital_management_system/Server/Hospital.Bussiness/obj/Debug/net9.0/Hospital.Bussiness.sourcelink.json
+/home/anubhav/Coplur_Course/Complete_Hospital_management_system/Server/Hospital.Bussiness/bin/Debug/net9.0/BouncyCastle.Cryptography.dll
+/home/anubhav/Coplur_Course/Complete_Hospital_management_system/Server/Hospital.Bussiness/bin/Debug/net9.0/MailKit.dll
+/home/anubhav/Coplur_Course/Complete_Hospital_management_system/Server/Hospital.Bussiness/bin/Debug/net9.0/MimeKit.dll
