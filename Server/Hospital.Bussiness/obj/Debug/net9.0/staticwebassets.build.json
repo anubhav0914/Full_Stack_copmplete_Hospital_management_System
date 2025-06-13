@@ -1,0 +1,24 @@
+{
+  "Version": 1,
+  "Hash": "4otzaeIoAQIbtvmlqWEehbKJCKFJGxnhDcsl8IUOQ9E=",
+  "Source": "Hospital.Bussiness",
+  "BasePath": "_content/Hospital.Bussiness",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [
+    {
+      "Identity": "/home/anubhav/Coplur_Course/Complete_Hospital_management_system/Server/Hospital.Persistence/Hospital.Persistence.csproj",
+      "Version": 2,
+      "Source": "Hospital.Persistence",
+      "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
+      "AdditionalPublishProperties": "",
+      "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework",
+      "GetBuildAssetsTargets": "GetCurrentProjectBuildStaticWebAssetItems",
+      "AdditionalBuildProperties": "",
+      "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework"
+    }
+  ],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

@@ -1,0 +1,35 @@
+{
+  "Version": 1,
+  "Hash": "4zPsV4GNiA4nCfSw3RvRlO6+Tq4PcTbjLLHf9fI2DfM=",
+  "Source": "Hospital.API",
+  "BasePath": "_content/Hospital.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [
+    {
+      "Identity": "/home/anubhav/Coplur_Course/Complete_Hospital_management_system/Server/Hospital.Bussiness/Hospital.Bussiness.csproj",
+      "Version": 2,
+      "Source": "Hospital.Bussiness",
+      "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
+      "AdditionalPublishProperties": "",
+      "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework",
+      "GetBuildAssetsTargets": "GetCurrentProjectBuildStaticWebAssetItems",
+      "AdditionalBuildProperties": "",
+      "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework"
+    },
+    {
+      "Identity": "/home/anubhav/Coplur_Course/Complete_Hospital_management_system/Server/Hospital.Persistence/Hospital.Persistence.csproj",
+      "Version": 2,
+      "Source": "Hospital.Persistence",
+      "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
+      "AdditionalPublishProperties": "",
+      "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework",
+      "GetBuildAssetsTargets": "GetCurrentProjectBuildStaticWebAssetItems",
+      "AdditionalBuildProperties": "",
+      "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework"
+    }
+  ],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
