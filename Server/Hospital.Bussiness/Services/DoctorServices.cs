@@ -9,6 +9,7 @@ using System.IdentityModel.Tokens.Jwt;
 
 using System.Security.Claims;
 using Hpospital.Bussiness.Services.MailServices;
+using Hospital.Business.Services.ImageService;
 
 
 namespace Hospital.Bussiness.Services
@@ -20,14 +21,22 @@ namespace Hospital.Bussiness.Services
         private readonly IDoctorRepository _doctorRepository;
         private readonly IDepartmentRepository _departmentRepository;
         private readonly IMailService _mailService;
+        private readonly IImageService _imageServices;
 
 
 
-        public DoctorServices(IDoctorRepository doctorRepository, IDepartmentRepository departmentRepository, IMailService mailService)
+
+        public DoctorServices(IDoctorRepository doctorRepository,
+        IDepartmentRepository departmentRepository,
+        IMailService mailService,
+        IImageService imageService
+        )
+
         {
             _doctorRepository = doctorRepository;
             _departmentRepository = departmentRepository;
-             _mailService = mailService;
+            _mailService = mailService;
+            _imageServices = imageService;
 
         }
 
@@ -37,7 +46,7 @@ namespace Hospital.Bussiness.Services
             {
                 var existingDoctor = await _doctorRepository.GetByEmailAsync(reqModel.Email);
 
-                if (existingDoctor != null)
+                if (existingDoctor != null )
                 {
                     return new APIResponse<DoctorDTO>
                     {
@@ -46,7 +55,11 @@ namespace Hospital.Bussiness.Services
                         Data = null
                     };
                 }
+                
+                UploadImageRequest img = new UploadImageRequest { File = reqModel.Image };
 
+                var imgUrl = await _imageServices.UploadImageAsync(img);    
+            
                 var doctor = new Doctor
                 {
                     FirstName = reqModel.FirstName,
@@ -58,6 +71,7 @@ namespace Hospital.Bussiness.Services
                     ExperienceYear = reqModel.ExperienceYear,
                     JoiningDate = reqModel.JoiningDate,
                     Availability = reqModel.Availability,
+                    ProfileImage = imgUrl,
                     DepartmentId = reqModel.DepartmentId,
                     Password = BCrypt.Net.BCrypt.HashPassword(reqModel.Password)
                 };
@@ -134,7 +148,8 @@ namespace Hospital.Bussiness.Services
                 ExperienceYear = p.ExperienceYear,
                 JoiningDate = p.JoiningDate,
                 Availability = p.Availability,
-                DepartmentId = p.DepartmentId
+                DepartmentId = p.DepartmentId,
+                ProfileImage = p.ProfileImage,
 
             }).ToList();
 
@@ -175,7 +190,8 @@ namespace Hospital.Bussiness.Services
                 ExperienceYear = doctor.ExperienceYear,
                 JoiningDate = doctor.JoiningDate,
                 Availability = doctor.Availability,
-                DepartmentId = doctor.DepartmentId
+                DepartmentId = doctor.DepartmentId,
+                ProfileImage  = doctor.ProfileImage
             };
 
             return new APIResponse<DoctorDTO>
@@ -214,6 +230,7 @@ namespace Hospital.Bussiness.Services
                 existingDoctor.JoiningDate = doctor.JoiningDate;
                 existingDoctor.Availability = doctor.Availability;
                 existingDoctor.DepartmentId = doctor.DepartmentId;
+                
 
 
                 var added = await _doctorRepository.UpdateAsync(existingDoctor);
@@ -355,7 +372,8 @@ namespace Hospital.Bussiness.Services
                 ExperienceYear = p.ExperienceYear,
                 JoiningDate = p.JoiningDate,
                 Availability = p.Availability,
-                DepartmentId = p.DepartmentId
+                DepartmentId = p.DepartmentId,
+                ProfileImage = p.ProfileImage
 
             }).ToList();
 

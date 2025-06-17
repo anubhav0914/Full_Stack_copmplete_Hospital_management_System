@@ -1,13 +1,44 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, UNSAFE_getPatchRoutesOnNavigationFunction } from 'react-router-dom';
 import { useAuth } from '../auth/AuthProvider';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FaSignOutAlt } from 'react-icons/fa';
+import api from '../api/axios';
 
 function Navbar() {
   const { user, logout } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [profile,setProfile] = useState(null);
+
+  useEffect(() => {
+    
+    const getdata = async()=>{
+
+      try {
+        if (user?.email) {
+          if(user.role =="patient"){
+            await api.get(`/Patient/getByEmail/${user.id}`)
+            .then(res => setProfile(res.data.data))
+            .catch(err => console.error('Profile fetch failed', err));
+          }
+          if(user.role =="doctor"){
+            await api.get(`/Doctor/GetById/${user.id}`)
+            .then(res => setProfile(res.data.data))
+            .catch(err => console.error('Profile fetch failed', err));
+          }
+          if(user.role =="employee"){
+            await api.get(`/Employee/GetById/${user.id}`)
+            .then(res => setProfile(res.data.data))
+            .catch(err => console.error('Profile fetch failed', err));
+          }
+        }
+      } catch (error) {
+          
+      }
+    }
+    getdata();
+  },[user?.email]);
 
   const handleLogout = () => {
     toast.info(
@@ -39,6 +70,7 @@ function Navbar() {
       }
     );
   };
+  
 
   const performLogout = () => {
     logout(); // calls context logout function
@@ -79,7 +111,7 @@ function Navbar() {
                     className="text-white text-sm font-medium text-center  rounded-full shadow bg-gradient-to-b from-blue-400 to-blue-600 hover:from-blue-500 hover:to-blue-700 border border-white"
                   >
                     <img
-                      src={user.profilePhoto || "./public/WhatsApp Image 2024-09-21 at 11.21.17.jpeg"}
+                      src={profile?.profileImage || "./public/WhatsApp Image 2024-09-21 at 11.21.17.jpeg"}
                       alt="Profile"
                       className="w-10 h-10 rounded-full border-2 border-blue-500 object-cover"
                     />
@@ -136,7 +168,7 @@ function Navbar() {
             <div className="pt-2 border-t border-gray-200">
               <div className="flex items-center gap-3 mb-2">
                 <img
-                  src={user.profilePhoto || "/placeholder-profile.png"}
+                  src={profile.profileImage || "/placeholder-profile.png"}
                   alt="Profile"
                   className="w-10 h-10 rounded-full border"
                 />

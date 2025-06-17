@@ -17,6 +17,8 @@ namespace Hospital.Persistence.Models
         public int? DepartmentId { get; set; }
         public string Password { get; set; }
 
+        public string ProfileImage { get; set; }
+
         public Department Department { get; set; }
         public ICollection<Appointment> Appointments { get; set; }
         public ICollection<BillingTransaction> BillingTransactions { get; set; }

@@ -184,3 +184,5 @@
 /home/anubhav/Coplur_Course/Complete_Hospital_management_system/Server/Hospital.API/bin/Debug/net9.0/BouncyCastle.Cryptography.dll
 /home/anubhav/Coplur_Course/Complete_Hospital_management_system/Server/Hospital.API/bin/Debug/net9.0/MailKit.dll
 /home/anubhav/Coplur_Course/Complete_Hospital_management_system/Server/Hospital.API/bin/Debug/net9.0/MimeKit.dll
+/home/anubhav/Coplur_Course/Complete_Hospital_management_system/Server/Hospital.API/bin/Debug/net9.0/CloudinaryDotNet.dll
+/home/anubhav/Coplur_Course/Complete_Hospital_management_system/Server/Hospital.API/bin/Debug/net9.0/Newtonsoft.Json.dll

@@ -56,6 +56,11 @@ namespace Hospital.Persistence.Repository.Config
             builder.Property(d => d.Password)
                 .IsRequired(true)
                 .HasMaxLength(100);
+            
+            builder.Property(d => d.ProfileImage)
+                .IsRequired(false)
+                .HasMaxLength(100);
+
 
           
 

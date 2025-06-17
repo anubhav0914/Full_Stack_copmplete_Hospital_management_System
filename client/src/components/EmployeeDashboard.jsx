@@ -42,16 +42,16 @@ const EmployeeDashboard = () => {
         <div className="max-w-6xl mx-auto mt-30 mb-20 bg-white rounded-3xl shadow-2xl overflow-hidden border border-green-300">
             {/* Header */}
             
-            <div className="bg-green-600 p-8 flex items-center gap-8 text-white">
+            <div className="bg-green-700 pt-20 mb-10 flex h-50 items-center gap-8 text-white">
                 <img
-                    src="/public/default-avatar.png"
+                    src={profile.profileImage}
                     alt="Employee"
-                    className="w-32 h-32 rounded-full border-4 border-white object-cover shadow-lg"
+                    className="w-52 h-52 rounded-full border-4 border-white object-cover shadow-lg"
                 />
-                <div>
+                <div >
                     <h1 className="text-4xl font-bold">{`${profile.firstName} ${profile.lastName}`}</h1>
                     <p className="text-xl">{profile.role}</p>
-                    <p className="text-md mt-1">Joined on {new Date(profile.joiningDate).toLocaleDateString()}</p>
+                    <p className="text-md mt-1 ">Joined on {new Date(profile.joiningDate).toLocaleDateString()}</p>
                 </div>
             </div>
 

@@ -14,6 +14,8 @@ namespace Hospital.Bussiness.DTOs
         public string Email { get; set; }
         public string BloodGroup { get; set; }
         public string Password { get; set; }
+        public IFormFile Image { get; set; }
+
 
     }
 

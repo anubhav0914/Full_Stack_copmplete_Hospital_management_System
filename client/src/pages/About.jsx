@@ -14,12 +14,12 @@ const About = () => {
             Our hospital is committed to providing world-class healthcare with compassion, integrity, and innovation.
             We offer a wide range of medical services, advanced treatments, and caring support to our patients.
           </p>
-          <button className="px-6 py-3 border border-slate-900 rounded-lg text-slate-900 font-semibold hover:bg-slate-900 hover:text-white transition">
+          <button onClick={()=>("/appointments")} className=" px-6 py-3 border border-slate-900 rounded-lg text-slate-900 font-semibold hover:bg-slate-900 hover:text-white transition">
             Get an Appointment
           </button>
         </div>
         <img
-          src="/doctor1.jpg" // Replace with real image path
+          src="./public/hospital.png" // Replace with real image path
           alt="Doctor"
           className="rounded-xl shadow-lg w-full h-auto object-cover"
         />
@@ -28,7 +28,7 @@ const About = () => {
       {/* Our Mission Section */}
       <section className="grid md:grid-cols-2 gap-12 items-center">
         <img
-          src="/doctor2.jpg" // Replace with real image path
+          src="./public/hospital.png" // Replace with real image path
           alt="Mission"
           className="rounded-xl shadow-lg w-full h-auto object-cover"
         />
@@ -54,7 +54,7 @@ const About = () => {
         <div className="p-6 border rounded-xl hover:shadow-lg transition">
           <FaHeartbeat className="text-4xl text-green-600 mx-auto mb-4" />
           <h4 className="text-xl font-semibold text-slate-800 mb-2">Mental Health Care</h4>
-          <p className="text-gray-600">Compassionate care for mental wellness, including therapy and counseling.</p>
+          <p className="text-gray-600">Compassionate care for mental wellness, inc/appointmentsluding therapy and counseling.</p>
         </div>
         <div className="p-6 border rounded-xl hover:shadow-lg transition">
           <FaProcedures className="text-4xl text-blue-600 mx-auto mb-4" />

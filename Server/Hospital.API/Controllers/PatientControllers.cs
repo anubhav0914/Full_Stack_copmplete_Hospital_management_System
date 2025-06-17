@@ -26,7 +26,7 @@ namespace Hospital.API.Controllers
 
         [HttpPost]
         [Route("register")]
-        public async Task<IActionResult> Register([FromBody] PatientRequestDTO requestDTO)
+        public async Task<IActionResult> Register([FromForm]PatientRequestDTO requestDTO)
         {
 
             var result = await _services.Register(requestDTO);
@@ -59,7 +59,7 @@ namespace Hospital.API.Controllers
         [HttpPut]
         [Route("update")]
 
-        public async Task<ActionResult> Update([FromBody] PatientRequestDTO requestDTO)
+        public async Task<ActionResult> Update([FromForm]  PatientRequestDTO requestDTO)
         {
             var result = await _services.Update(requestDTO);
             return result.Status ? Ok(result) : BadRequest(result);

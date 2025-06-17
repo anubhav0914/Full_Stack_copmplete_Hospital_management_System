@@ -47,7 +47,7 @@ export default function SingleDoctorDetails() {
           </button>
             <div className="w-64 h-64 mx-auto lg:mx-0 rounded-full overflow-hidden border-8 border-red-500 shadow-md">
               <img
-                src="./public/WhatsApp Image 2024-09-21 at 11.21.17.jpeg"
+                src={doctor.profileImage}
                 alt="Doctor"
                 className="w-full h-full object-cover"
               />
@@ -81,7 +81,7 @@ export default function SingleDoctorDetails() {
 
             <div className="pt-6">
               <Link to="/appointments">
-                <button className="bg-red-600 hover:bg-red-700 text-white px-8 py-4 text-xl font-bold rounded-xl shadow-md transition">
+                <button className="bg-red-600 hover:bg-red-700 text-white px-8 py-4 text-xl font-bold rounded-xl shadow-md transition cursor-pointer">
                   Book Appointment
                 </button>
               </Link>

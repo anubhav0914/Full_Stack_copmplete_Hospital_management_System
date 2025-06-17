@@ -8,7 +8,6 @@ using System.Security.Claims;
 
 namespace Hospital.API.Controllers
 {
-    // [Authorize(Roles = "Admin")]
     [ApiController]
     [Route("api/[controller]")]
     [ProducesResponseType(200)]
@@ -26,9 +25,9 @@ namespace Hospital.API.Controllers
             _services = services;
         }
 
+        [Authorize(Roles = "patient")]
         [HttpPost]
         [Route("AddAppointment")]
-        [Authorize(Roles = "patient")]
         
         public async Task<IActionResult> AddAppointment([FromBody] AppointmentRequestDTO requestDTO)
         {
@@ -42,6 +41,8 @@ namespace Hospital.API.Controllers
 
         [HttpGet]
         [Route("allAppointments")]
+        [Authorize(Roles = "admin")]
+
         public async Task<IActionResult> GetAll()
         {
 
@@ -53,6 +54,8 @@ namespace Hospital.API.Controllers
 
         [HttpGet]
         [Route("GetById/{id:int}")]
+        [Authorize(Roles = "admin,patient")]
+
 
         public async Task<ActionResult> GetById(int id)
         {
@@ -72,6 +75,8 @@ namespace Hospital.API.Controllers
 
         [HttpGet]
         [Route("delete/{id:int}")]
+        [Authorize(Roles = "patient")]
+
 
         public async Task<ActionResult> Delete(int id)
         {
@@ -82,6 +87,8 @@ namespace Hospital.API.Controllers
 
         [HttpGet]
         [Route("GetAppointmentByDoctorID/{id:int}")]
+        [Authorize(Roles = "admin")]
+
 
         public async Task<ActionResult> GetAppointmentByDoctorID(int id)
         {
@@ -91,16 +98,20 @@ namespace Hospital.API.Controllers
 
         [HttpGet]
         [Route("GetAppointmentByPatientID/{id:int}")]
+        [Authorize(Roles = "patient")]
+
 
         public async Task<ActionResult> GetAppointmentByPatientID(int id)
         {
             var result = await _services.GetAppointmentByPatientID(id);
             return result.Status ? Ok(result) : BadRequest(result);
         }
-        
-        
+
+
         [HttpPost]
         [Route("getAppointmentByDate")]
+        [Authorize(Roles = "admin")]
+        
         public async Task<IActionResult> GetAppointmentByDate([FromBody] DateTime date)
         {
 

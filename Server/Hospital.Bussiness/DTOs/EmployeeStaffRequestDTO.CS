@@ -1,7 +1,7 @@
 namespace Hospital.Persistence.Models
 {
     public class EmployeeStaffRequestDTO
-    {   
+    {
         public int EmpId { get; set; }
 
         public string FirstName { get; set; }
@@ -15,6 +15,8 @@ namespace Hospital.Persistence.Models
         public int? DepartmentId { get; set; }
 
         public string Password { get; set; }
+         public IFormFile Image { get; set; }
+
 
     }
 

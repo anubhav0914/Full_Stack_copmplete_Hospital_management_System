@@ -9,6 +9,7 @@ using System.IdentityModel.Tokens.Jwt;
 
 using System.Security.Claims;
 using Hpospital.Bussiness.Services.MailServices;
+using Hospital.Business.Services.ImageService;
 
 
 namespace Hospital.Bussiness.Services
@@ -21,11 +22,14 @@ namespace Hospital.Bussiness.Services
         private readonly ITokenServices _tokenServices;
         private readonly IMailService _mailService;
 
-        public PatientServices(IPatientRepository patinetRepository, ITokenServices tokenServices, IMailService mailService)
+        private readonly IImageService _imageServices;
+
+        public PatientServices(IPatientRepository patinetRepository, ITokenServices tokenServices, IMailService mailService, IImageService imageService)
         {
             _patientRepository = patinetRepository;
             _tokenServices = tokenServices;
             _mailService = mailService;
+            _imageServices = imageService;
         }
 
         public async Task<APIResponse<PatientDTO>> Register(PatientRequestDTO reqModel)
@@ -44,6 +48,10 @@ namespace Hospital.Bussiness.Services
                     };
                 }
 
+                UploadImageRequest img = new UploadImageRequest { File = reqModel.Image };
+
+                var imgUrl = await _imageServices.UploadImageAsync(img);    
+            
                 var patient = new Patient
                 {
                     FirstName = reqModel.FirstName,
@@ -55,6 +63,7 @@ namespace Hospital.Bussiness.Services
                     PhoneNumber = reqModel.PhoneNumber,
                     Email = reqModel.Email,
                     BloodGroup = reqModel.BloodGroup,
+                    ProfileImage = imgUrl,
                     Password = BCrypt.Net.BCrypt.HashPassword(reqModel.Password),
                     CreatedDate = DateTime.UtcNow,
                     UpdatedDate = DateTime.UtcNow
@@ -125,7 +134,8 @@ namespace Hospital.Bussiness.Services
                 Email = p.Email,
                 BloodGroup = p.BloodGroup,
                 CreatedDate = p.CreatedDate,
-                UpdatedDate = p.UpdatedDate
+                UpdatedDate = p.UpdatedDate,
+                ProfileImage = p.ProfileImage
             }).ToList();
 
             return new APIResponse<List<PatientDTO>>
@@ -166,7 +176,8 @@ namespace Hospital.Bussiness.Services
                 Email = patient.Email,
                 BloodGroup = patient.BloodGroup,
                 CreatedDate = patient.CreatedDate,
-                UpdatedDate = patient.UpdatedDate
+                UpdatedDate = patient.UpdatedDate,
+                ProfileImage = patient.ProfileImage
             };
 
             return new APIResponse<PatientDTO>
@@ -323,7 +334,8 @@ namespace Hospital.Bussiness.Services
                 Email = patient.Email,
                 BloodGroup = patient.BloodGroup,
                 CreatedDate = patient.CreatedDate,
-                UpdatedDate = patient.UpdatedDate
+                UpdatedDate = patient.UpdatedDate,
+                ProfileImage = patient.ProfileImage
             };
 
             return new APIResponse<PatientDTO>
@@ -336,41 +348,6 @@ namespace Hospital.Bussiness.Services
         }
 
 
-    //     public async Task<LoginResponse> Login(LoginRequestDTO loginDTO)
-        //     {
-
-        //         var patient = await _patientRepository.GetByEmailAsync(loginDTO.Email);
-        //         if (patient == null || !BCrypt.Net.BCrypt.Verify(loginDTO.Password, patient.Password))
-        //             return new LoginResponse
-        //         {
-        //             Status = true,
-        //             StatusCode = 401,
-        //             JwtToken = null,
-        //             Message = "unauthorized access"
-
-        //         };;
-
-        //         var claims = new List<Claim>
-        //             {
-        //                 new Claim(ClaimTypes.NameIdentifier, patient.PatientId.ToString()),
-        //                 new Claim(ClaimTypes.Email, patient.Email!),
-        //                 new Claim(ClaimTypes.Role, loginDTO.Role) // role from request
-        //             };
-
-        //         var Jwttoken = _tokenServices.GenerateToken(claims);
-
-
-
-        //         return new LoginResponse
-        //         {
-        //             Status = true,
-        //             StatusCode = 200,
-        //             Message = "Logged in successfully",
-        //             JwtToken = Jwttoken,
-
-        //         };
-
-        // }
-
+   
     }
 }

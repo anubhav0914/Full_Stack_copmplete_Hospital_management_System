@@ -11,6 +11,8 @@ namespace Hospital.Bussiness.DTOs
         public string Qualification { get; set; } 
         public int ExperienceYear { get; set; }
         public DateTime JoiningDate { get; set; }
+        public string ProfileImage { get; set; }
+
         public List<DayOfWeek> Availability { get; set; } 
         public int? DepartmentId { get; set; }
 

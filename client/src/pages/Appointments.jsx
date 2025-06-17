@@ -18,7 +18,7 @@ export default function Appointments() {
   const [appTime, setAppTime] = useState('');
   const [message, setMessage] = useState(null);
 
-  <ToastContainer position="top-right" autoClose={3000} />
+  <ToastContainer position="top-right" autoClose={1000} />
 
   useEffect(() => {
     api.get('/Doctor/allDoctors')

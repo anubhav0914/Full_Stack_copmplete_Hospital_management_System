@@ -60,6 +60,10 @@ public class PatientConfiguration : IEntityTypeConfiguration<Patient>
         builder.Property(p => p.UpdatedDate)
             .IsRequired();
 
+        builder.Property(p => p.ProfileImage)
+                .IsRequired(false)
+                .HasMaxLength(100);
+
         // Relationships
         builder.HasMany(p => p.Appointments)
             .WithOne(a => a.Patient)

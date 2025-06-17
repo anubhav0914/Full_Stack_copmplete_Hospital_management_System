@@ -14,6 +14,8 @@ namespace Hospital.Persistence.Models
         public DateTime JoiningDate { get; set; }
 
         public string Password { get; set; }
+        public string ProfileImage { get; set; }
+
 
         public Department Department { get; set; }
     }

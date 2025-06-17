@@ -83,7 +83,7 @@ const DoctorDashboard = () => {
             <div className="bg-green-600 h-44 relative">
                 <div className="absolute -bottom-16 left-8 w-36 h-36 border-4 border-white rounded-full overflow-hidden shadow-lg">
                     <img
-                        src="/public/WhatsApp Image 2024-09-21 at 11.21.17.jpeg"
+                        src={profile.profileImage}
                         alt="Doctor"
                         className="w-full h-full object-cover"
                     />

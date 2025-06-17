@@ -5,6 +5,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { FaUserMd, FaUserTie, FaUser, FaSearch, FaFileInvoiceDollar, FaSignOutAlt, FaListAlt } from 'react-icons/fa';
 import { useAuth } from '../auth/AuthProvider';
+import { toast } from 'react-toastify';
 
 const AdminDashboard = () => {
     const navigate = useNavigate();
@@ -25,6 +26,9 @@ const AdminDashboard = () => {
     const [showAdmission, setshowAdmission] = useState(false)
     const [showdepartment, setshowDepartment] = useState(false)
     const [availableDays, setavailableDays] = useState([])
+    const [showAddDepartmentForm, setShowAddDepartmentForm] = useState(false);
+    const [departmentName, setDepartmentName] = useState('');
+    const [departmentHead, setDepartmentHead] = useState('');
 
 
 
@@ -58,6 +62,35 @@ const AdminDashboard = () => {
         fetchAll();
     }, [user?.id])
 
+
+    const handleAddDepartment = async () => {
+        if (!departmentName || !departmentHead) {
+            alert("Please fill in all fields");
+            return;
+        }
+
+        try {
+            const payload = {
+                departmentName,
+                departmentHead
+            };
+
+            const response = await api.post('/Department/AddDepartment', payload);
+            toast.success ("Department added successfully!");
+
+            // Refresh list
+            const deptList = await api.get(`/Department/allDepartment`);
+            setDepartment(deptList.data.data);
+
+            // Reset form
+            setDepartmentName('');
+            setDepartmentHead('');
+            setShowAddDepartmentForm(false);
+        } catch (error) {
+            alert("Failed to add department.");
+            console.error(error);
+        }
+    };
 
     const handleSearch = () => {
         try {
@@ -110,7 +143,7 @@ const AdminDashboard = () => {
                             <ActionButton icon={<FaListAlt size={40} />} label="Admission/Discharge" onClick={() => setshowAdmission(!showAdmission)} />
                             <ActionButton icon={<FaListAlt size={40} />} label="Appointments" onClick={() => setshowAppointments(!showAppointments)} />
                             <ActionButton icon={<FaListAlt size={40} />} label="Department" onClick={() => setshowDepartment(!showdepartment)} />
-
+                            <ActionButton icon={<FaUserMd size={40} />} label="Add Department" onClick={() => setShowAddDepartmentForm(!showAddDepartmentForm)} />
                             <ActionButton icon={<FaFileInvoiceDollar size={40} />} label="Billing Section" onClick={() => navigate('/bills')} />
                         </div>
 
@@ -134,22 +167,22 @@ const AdminDashboard = () => {
                                 </button>
                             </div>
                             {searchType == "employee" && searchResult && (
-                                    <div className="max-w-sm mt-8 mx-auto bg-white rounded-xl shadow-md overflow-hidden border p-6 mb-4">
-                                        <div className="mb-4">
-                                            <h2 className="text-xl font-semibold text-blue-700">{searchResult.firstName} {searchResult.lastName}</h2>
-                                            <p className="text-sm text-gray-600">{searchResult.role}</p>
-                                        </div>
-
-                                        <div className="space-y-1 text-sm text-gray-700">
-                                            <p><span className="font-semibold">ID:</span> {searchResult.empId}</p>
-                                            <p><span className="font-semibold">Department ID:</span> {searchResult.departmentId}</p>
-                                            <p><span className="font-semibold">Gender:</span> {searchResult.gender}</p>
-                                            <p><span className="font-semibold">Phone:</span> {searchResult.phoneNumber}</p>
-                                            <p><span className="font-semibold">Email:</span> {searchResult.email}</p>
-                                            <p><span className="font-semibold">Salary:</span> ₹{searchResult.salary}</p>
-                                            <p><span className="font-semibold">Joining Date:</span> {new Date(searchResult.joiningDate).toLocaleDateString()}</p>
-                                        </div>
+                                <div className="max-w-sm mt-8 mx-auto bg-white rounded-xl shadow-md overflow-hidden border p-6 mb-4">
+                                    <div className="mb-4">
+                                        <h2 className="text-xl font-semibold text-blue-700">{searchResult.firstName} {searchResult.lastName}</h2>
+                                        <p className="text-sm text-gray-600">{searchResult.role}</p>
                                     </div>
+
+                                    <div className="space-y-1 text-sm text-gray-700">
+                                        <p><span className="font-semibold">ID:</span> {searchResult.empId}</p>
+                                        <p><span className="font-semibold">Department ID:</span> {searchResult.departmentId}</p>
+                                        <p><span className="font-semibold">Gender:</span> {searchResult.gender}</p>
+                                        <p><span className="font-semibold">Phone:</span> {searchResult.phoneNumber}</p>
+                                        <p><span className="font-semibold">Email:</span> {searchResult.email}</p>
+                                        <p><span className="font-semibold">Salary:</span> ₹{searchResult.salary}</p>
+                                        <p><span className="font-semibold">Joining Date:</span> {new Date(searchResult.joiningDate).toLocaleDateString()}</p>
+                                    </div>
+                                </div>
                             )}
                             {searchType == "doctor" && searchResult && (<div className="max-w-sm mt-8 mx-auto bg-white rounded-xl shadow-md overflow-hidden border p-6 mb-4">
                                 <div className="mb-4">
@@ -191,6 +224,40 @@ const AdminDashboard = () => {
                                 </div>
 
                             )}
+                            {showAddDepartmentForm && (
+                                <div className="bg-white p-6 mt-8 border rounded shadow max-w-md">
+                                    <h2 className="text-lg font-semibold mb-4">Add New Department</h2>
+                                    <div className="space-y-4">
+                                        <div>
+                                            <label className="block text-sm font-medium">Department Name</label>
+                                            <input
+                                                type="text"
+                                                value={departmentName}
+                                                onChange={(e) => setDepartmentName(e.target.value)}
+                                                className="border px-3 py-2 rounded w-full"
+                                                placeholder="e.g. Cardiology"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium">Department Head</label>
+                                            <input
+                                                type="text"
+                                                value={departmentHead}
+                                                onChange={(e) => setDepartmentHead(e.target.value)}
+                                                className="border px-3 py-2 rounded w-full"
+                                                placeholder="e.g. Dr. Sharma"
+                                            />
+                                        </div>
+                                        <button
+                                            onClick={handleAddDepartment}
+                                            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+                                        >
+                                            Submit
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
+
                         </div>
 
                     </div>

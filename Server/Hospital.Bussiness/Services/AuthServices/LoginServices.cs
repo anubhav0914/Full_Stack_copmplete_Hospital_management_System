@@ -75,7 +75,7 @@ namespace Hospital.Bussiness.Services.AuthServices
                 id = user.DoctorId;
 
             }
-            else if (role == "staff")
+            else if (role == "employee")
             {
                 user = await _employeestaffRepository.GetByEmailAsync(loginDTO.Email);
                 if (user == null)

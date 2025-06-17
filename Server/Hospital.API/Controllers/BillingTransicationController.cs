@@ -8,6 +8,7 @@ using Hospital.Bussiness.Services;
 namespace Hospital.API.Controllers
 {
     [ApiController]
+    [Authorize(Roles = "admin")]
     [Route("api/[controller]")]
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import api from '../api/axios';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 
 export default function BillSection() {
     const [showForm, setShowForm] = useState(false);
@@ -71,6 +71,7 @@ export default function BillSection() {
     return (
         <>
             <div className="p-10 mt-25">
+                <ToastContainer ></ToastContainer>
                 <div className="flex justify-center gap-6 mb-6">
                 <button
                     onClick={() => navigate(-1)}

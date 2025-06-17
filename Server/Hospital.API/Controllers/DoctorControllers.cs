@@ -26,7 +26,7 @@ namespace Hospital.API.Controllers
 
         [HttpPost]
         [Route("register")]
-        public async Task<IActionResult> Register([FromBody] DoctorRequestDTO requestDTO)
+        public async Task<IActionResult> Register([FromForm]  DoctorRequestDTO requestDTO)
         {
 
             var result = await _services.RegisterDoctor(requestDTO);

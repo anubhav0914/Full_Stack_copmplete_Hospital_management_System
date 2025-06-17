@@ -25,6 +25,7 @@ namespace Hospital.API.Controllers
 
         [HttpPost]
         [Route("AddDepartment")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Add([FromBody] DepartmentRequestDTO requestDTO)
         {
 

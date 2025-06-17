@@ -26,13 +26,12 @@ namespace Hospital.API.Controllers
 
         [HttpPost]
         [Route("register")]
-        public async Task<IActionResult> Register([FromBody] EmployeeStaffRequestDTO requestDTO)
+        public async Task<IActionResult> Register([FromForm]  EmployeeStaffRequestDTO requestDTO)
         {
 
             var result = await _services.RegisterEmployee(requestDTO);
 
             return result.Status ? Ok(result) : BadRequest(result);
-            return Ok();
         }
 
         [HttpGet]

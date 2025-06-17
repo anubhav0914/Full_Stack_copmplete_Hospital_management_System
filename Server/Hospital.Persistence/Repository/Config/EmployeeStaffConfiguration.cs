@@ -46,11 +46,15 @@ namespace Hospital.Persistence.Repository.Config
 
             builder.Property(e => e.Password)
                    .IsRequired();
+            
+            builder.Property(e => e.ProfileImage)
+                .IsRequired(false)
+                .HasMaxLength(100);
 
             
 
             // Relationship (optional Department)
-            builder.HasOne(e => e.Department)
+                     builder.HasOne(e => e.Department)
                    .WithMany(d => d.Employees)
                    .HasForeignKey(e => e.DepartmentId)
                    .OnDelete(DeleteBehavior.SetNull); // If department is deleted, set to null

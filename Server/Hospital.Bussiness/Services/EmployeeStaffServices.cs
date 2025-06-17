@@ -9,6 +9,7 @@ using System.IdentityModel.Tokens.Jwt;
 
 using System.Security.Claims;
 using Hpospital.Bussiness.Services.MailServices;
+using Hospital.Business.Services.ImageService;
 
 
 namespace Hospital.Bussiness.Services
@@ -20,15 +21,19 @@ namespace Hospital.Bussiness.Services
         private readonly IEmployeeStaffRepository _employeeStaffRepository;
         private readonly IDepartmentRepository _departmentRepository;
         private readonly IMailService _mailService;
+        
+        private readonly IImageService _imageServices;
 
 
         public EmployeeStaffServices(IEmployeeStaffRepository employeeStaffRepository,
         IDepartmentRepository departmentRepository,
-        IMailService mailService)
+        IMailService mailService,
+        IImageService imageService)
         {
             _employeeStaffRepository = employeeStaffRepository;
             _departmentRepository = departmentRepository;
             _mailService = mailService;
+            _imageServices = imageService;
 
         }
 
@@ -48,6 +53,10 @@ namespace Hospital.Bussiness.Services
                     };
                 }
 
+                UploadImageRequest img = new UploadImageRequest { File = reqModel.Image };
+
+                var imgUrl = await _imageServices.UploadImageAsync(img);
+
                 var employeestaff = new EmployeeStaff
                 {
                     FirstName = reqModel.FirstName,
@@ -58,6 +67,7 @@ namespace Hospital.Bussiness.Services
                     Role = reqModel.Role,
                     Salary = reqModel.Salary,
                     JoiningDate = reqModel.JoiningDate,
+                    ProfileImage = imgUrl,
                     DepartmentId = reqModel.DepartmentId,
                     Password = BCrypt.Net.BCrypt.HashPassword(reqModel.Password)
 
@@ -135,6 +145,7 @@ namespace Hospital.Bussiness.Services
                 Gender = p.Gender,
                 Role = p.Role,
                 Salary = p.Salary,
+                ProfileImage = p.ProfileImage
 
             }).ToList();
 
@@ -175,6 +186,7 @@ namespace Hospital.Bussiness.Services
                 Gender = employee.Gender,
                 Role = employee.Role,
                 Salary = employee.Salary,
+                ProfileImage = employee.ProfileImage
             };
 
             return new APIResponse<EmployeeStaffDTO>
@@ -330,6 +342,7 @@ namespace Hospital.Bussiness.Services
                 Gender = p.Gender,
                 Role = p.Role,
                 Salary = p.Salary,
+                ProfileImage = p.ProfileImage
 
             }).ToList();
 

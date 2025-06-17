@@ -13,6 +13,8 @@ namespace Hospital.Bussiness.DTOs
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public string BloodGroup { get; set; }
+        public string ProfileImage { get; set; }
+
 
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }

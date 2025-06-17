@@ -10,6 +10,9 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 using Hospital.Business.DTOs;
 using Hpospital.Bussiness.Services.MailServices;
+using Hospital.Business.Cloudnary;
+using Hospital.Business.Services.ImageService;
+using CloudinaryDotNet;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,9 +22,22 @@ builder.Services.AddControllers();
 builder.Services.AddAuthorization();
 builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
 builder.Services.AddScoped<IMailService, MailService>();
+builder.Services.Configure<CloudinarySettings>(
+builder.Configuration.GetSection("CloudinarySettings"));
+builder.Services.AddScoped<IImageService, ImageService>();
+
+builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
+builder.Services.AddScoped(x =>
+{
+    var settings = builder.Configuration.GetSection("CloudinarySettings").Get<CloudinarySettings>();
+    var acc = new Account(settings.CloudName, settings.ApiKey, settings.ApiSecret);
+    return new Cloudinary(acc);
+});
 
 builder.Services.AddScoped<IPatientServices, PatientServices>();
 builder.Services.AddScoped<IDoctorServices, DoctorServices>();
+builder.Services.AddScoped<IImageService, ImageService>();
+
 builder.Services.AddScoped<IAppointmentServices, AppointmentServices>();
 builder.Services.AddScoped<IDepartmentServices, DepartmentServices>();
 builder.Services.AddScoped<IBillingTransicationServices, BillingTransicationServices>();
@@ -36,7 +52,7 @@ builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 builder.Services.AddScoped<IBillingTrasicationRepository, BillingTrasicationRepository>();
 builder.Services.AddScoped<IAdmissionDischargeRepository, AdmissionDischargeRepository>();
 builder.Services.AddScoped<ITokenServices, TokenServices>();
-builder.Services.AddScoped< ILoginServices , LoginServices>();
+builder.Services.AddScoped<ILoginServices, LoginServices>();
 
 builder.Services.AddSwaggerGen(c =>
 {
@@ -123,6 +139,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseCors();
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();

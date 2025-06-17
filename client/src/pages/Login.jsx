@@ -38,12 +38,13 @@ const Login = () => {
         }
       }
       else {
-        toast.warning(res.data.message)
+        toast.error(res.data.message)
       }
     } catch (err) {
       console.log(err)
       if (err.response && err.response.data && err.response.data.message) {
-        toast.warning(err.response.data.message + "or Password");
+        console.log(err)
+        toast.warning(err.response.data.message);
       } else {
         alert(err); // fallback message
       }

@@ -16,6 +16,9 @@ namespace Hospital.Persistence.Models
         public string Password { get; set; }
         public string RefershToken { get; set; }
 
+        public string ProfileImage { get; set; }
+
+
 
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
