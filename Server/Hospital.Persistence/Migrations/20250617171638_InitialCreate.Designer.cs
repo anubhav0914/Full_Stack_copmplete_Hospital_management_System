@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hospital.Persistence.Migrations
 {
     [DbContext(typeof(HospitalDBContext))]
-    [Migration("20250601032244_removingOneforigenKeyAdmissioIDfromBillingTable")]
-    partial class removingOneforigenKeyAdmissioIDfromBillingTable
+    [Migration("20250617171638_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -240,6 +240,10 @@ namespace Hospital.Persistence.Migrations
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
 
+                    b.Property<string>("ProfileImage")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<string>("Qualification")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -299,6 +303,10 @@ namespace Hospital.Persistence.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
+                    b.Property<string>("ProfileImage")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<string>("Role")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -312,6 +320,37 @@ namespace Hospital.Persistence.Migrations
                     b.HasIndex("DepartmentId");
 
                     b.ToTable("EmployeeStaffs", (string)null);
+                });
+
+            modelBuilder.Entity("Hospital.Persistence.Models.OTPModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<DateTime>("ExpiryTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsUsed")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("Otp")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OTPs", (string)null);
                 });
 
             modelBuilder.Entity("Hospital.Persistence.Models.Patient", b =>
@@ -371,6 +410,10 @@ namespace Hospital.Persistence.Migrations
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
 
+                    b.Property<string>("ProfileImage")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<string>("RefershToken")
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
@@ -405,13 +448,13 @@ namespace Hospital.Persistence.Migrations
                     b.HasOne("Hospital.Persistence.Models.Doctor", "Doctor")
                         .WithMany("Appointments")
                         .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Hospital.Persistence.Models.Patient", "Patient")
                         .WithMany("Appointments")
                         .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Doctor");
@@ -424,19 +467,19 @@ namespace Hospital.Persistence.Migrations
                     b.HasOne("Hospital.Persistence.Models.Appointment", "Appointment")
                         .WithMany()
                         .HasForeignKey("AppointmentId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Hospital.Persistence.Models.Doctor", "Doctor")
                         .WithMany("BillingTransactions")
                         .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Hospital.Persistence.Models.Patient", "Patient")
                         .WithMany("BillingTransactions")
                         .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Appointment");

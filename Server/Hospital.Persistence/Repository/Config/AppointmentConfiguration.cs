@@ -28,14 +28,14 @@ public class AppointmentConfiguration : IEntityTypeConfiguration<Appointment>
                 .WithMany(d => d.Appointments)
                 .HasForeignKey(a => a.DoctorId)
             .IsRequired(true)
-            .OnDelete(DeleteBehavior.SetNull); // Optional: Set DoctorId null if doctor is deleted
+            .OnDelete(DeleteBehavior.Cascade); // Optional: Set DoctorId null if doctor is deleted
 
             // Foreign Key: Patient
             builder.HasOne(a => a.Patient)
                 .WithMany(p => p.Appointments)
                 .HasForeignKey(a => a.PatientId)
                 .IsRequired(true)
-            .OnDelete(DeleteBehavior.SetNull); // Optional: Set PatientId null if patient is deleted
+            .OnDelete(DeleteBehavior.Cascade); // Optional: Set PatientId null if patient is deleted
     }
 }
 }

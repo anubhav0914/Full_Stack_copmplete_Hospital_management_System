@@ -5,7 +5,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { FaUserMd, FaUserTie, FaUser, FaSearch, FaFileInvoiceDollar, FaSignOutAlt, FaListAlt } from 'react-icons/fa';
 import { useAuth } from '../auth/AuthProvider';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 
 const AdminDashboard = () => {
     const navigate = useNavigate();
@@ -32,6 +32,7 @@ const AdminDashboard = () => {
 
 
 
+
     const dayMap = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 
@@ -54,7 +55,7 @@ const AdminDashboard = () => {
                 setAppointment(appointmnetsList.data.data)
                 setDepartment(departmentList.data.data)
 
-
+                console.log(patientsList)
             } catch {
                 alert(`Failed to fetch ${type}`);
             }
@@ -76,7 +77,7 @@ const AdminDashboard = () => {
             };
 
             const response = await api.post('/Department/AddDepartment', payload);
-            toast.success ("Department added successfully!");
+            toast.success("Department added successfully!");
 
             // Refresh list
             const deptList = await api.get(`/Department/allDepartment`);
@@ -93,32 +94,40 @@ const AdminDashboard = () => {
     };
 
     const handleSearch = () => {
-        try {
-            if (searchType === "patient") {
-                const pat = patients.find(d => d.patientId === Number(searchId));
-                setSearchResult(pat);
-            }
-            if (searchType === "doctor") {
-                const doc = doctors.find(d => d.doctorId === Number(searchId));
-                setavailableDays(doc.availability.map(day => dayMap[day]).join(', '));
-                setSearchResult(doc);
-            }
-            if (searchType === "employee") {
-                const emp = employees.find(d => d.empId === Number(searchId));
-                setSearchResult(emp);
-            }
-
-
-        } catch {
-            alert(`No ${searchType} found with ID ${searchId}`);
+    if (searchType === "patient") {
+        const pat = patients.find(d => d.patientId === Number(searchId));
+        if (!pat) {
+            toast.error(`No patient found with ID ${searchId}`);
+            return;
         }
-    };
+        setSearchResult(pat);
+    }
+
+    else if (searchType === "doctor") {
+        const doc = doctors.find(d => d.doctorId === Number(searchId));
+        if (!doc) {
+            toast.error(`No doctor found with ID ${searchId}`);
+            return;
+        }
+        setavailableDays(doc.availability.map(day => dayMap[day]).join(', '));
+        setSearchResult(doc);
+    }
+
+    else if (searchType === "employee") {
+        const emp = employees.find(d => d.empId === Number(searchId));
+        if (!emp) {
+            toast.error(`No employee found with ID ${searchId}`);
+            return;
+        }
+        setSearchResult(emp);
+    }
+};
+
 
     return (
         <>
-            <Navbar />
             <div className="max-w-7xl mx-auto mt-30 px-4 sm:px-6 lg:px-8">
-
+                <ToastContainer autoClose={2000}></ToastContainer>
                 <div className="flex h-full bg-gray-100">
                     {/* Left Panel */}
 
@@ -137,9 +146,9 @@ const AdminDashboard = () => {
 
                             <ActionButton icon={<FaUserMd size={40} />} label="Add Doctor" onClick={() => navigate('/doctor-register')} />
                             <ActionButton icon={<FaUserTie size={40} />} label="Add Employee" onClick={() => navigate('/employee-register')} />
-                            <ActionButton icon={<FaUser size={40} />} label="Get All Patients" onClick={() => setshowPatient(!showPatient)} />
-                            <ActionButton icon={<FaUserTie size={40} />} label="Get All Employees" onClick={() => setshowEmployee(!showEmployee)} />
-                            <ActionButton icon={<FaUserMd size={40} />} label="Get All Doctors" onClick={() => setshowDoctor(!showDoctor)} />
+                            <ActionButton icon={<FaUser size={40} />} label=" All Patients" onClick={() => setshowPatient(!showPatient)} />
+                            <ActionButton icon={<FaUserTie size={40} />} label=" All Employees" onClick={() => setshowEmployee(!showEmployee)} />
+                            <ActionButton icon={<FaUserMd size={40} />} label=" All Doctors" onClick={() => setshowDoctor(!showDoctor)} />
                             <ActionButton icon={<FaListAlt size={40} />} label="Admission/Discharge" onClick={() => setshowAdmission(!showAdmission)} />
                             <ActionButton icon={<FaListAlt size={40} />} label="Appointments" onClick={() => setshowAppointments(!showAppointments)} />
                             <ActionButton icon={<FaListAlt size={40} />} label="Department" onClick={() => setshowDepartment(!showdepartment)} />
@@ -151,7 +160,11 @@ const AdminDashboard = () => {
                         <div className="mt-10">
                             <h2 className="text-lg font-semibold mb-2">Search Record by ID</h2>
                             <div className="flex gap-4">
-                                <select value={searchType} onChange={e => setSearchType(e.target.value)} className="border px-3 py-2 rounded">
+                                <select value={searchType} onChange={e => {
+                                    setSearchType(e.target.value);
+                                    setSearchResult(null);
+                                }}
+                                    className="border px-3 py-2 rounded">
                                     <option value="doctor">Doctor</option>
                                     <option value="patient">Patient</option>
                                     <option value="employee">Employee</option>
@@ -174,6 +187,8 @@ const AdminDashboard = () => {
                                     </div>
 
                                     <div className="space-y-1 text-sm text-gray-700">
+                                        <p><span className="font-semibold"> Employee </span><img src={searchResult.profileImage}></img></p>
+
                                         <p><span className="font-semibold">ID:</span> {searchResult.empId}</p>
                                         <p><span className="font-semibold">Department ID:</span> {searchResult.departmentId}</p>
                                         <p><span className="font-semibold">Gender:</span> {searchResult.gender}</p>
@@ -191,6 +206,8 @@ const AdminDashboard = () => {
                                 </div>
 
                                 <div className="space-y-1 text-sm text-gray-700">
+                                    <p><span className="font-semibold">Doctor</span><img src={searchResult.profileImage}></img></p>
+
                                     <p><span className="font-semibold">Doctor ID:</span> {searchResult.doctorId}</p>
                                     <p><span className="font-semibold">Department ID:</span> {searchResult.departmentId}</p>
                                     <p><span className="font-semibold">Qualification:</span> {searchResult.qualification}</p>
@@ -212,6 +229,7 @@ const AdminDashboard = () => {
                                     </div>
 
                                     <div className="space-y-1 text-sm text-gray-700">
+                                        <p><span className="font-semibold">Doctor</span><img src={searchResult.profileImage}></img></p>
                                         <p><span className="font-semibold">Gender:</span> {searchResult.gender}</p>
                                         <p><span className="font-semibold">Phone:</span> {searchResult.phoneNumber}</p>
                                         <p><span className="font-semibold">Email:</span> {searchResult.email}</p>
@@ -262,16 +280,17 @@ const AdminDashboard = () => {
 
                     </div>
                 </div>
-            </div>
+            </div >
             {/* Table Displays */}
-            <div className="bg-white border-2 mb-20 border-green-800 max-w-6xl mx-auto mt-6 p-6 text-lg">
-                {showDoctor ? <TableDisplay title="Doctors" data={doctors} /> : ""}
+            < div className="bg-white border-2 mb-20 border-green-800 max-w-6xl mx-auto mt-6 p-6 text-lg" >
+                {showDoctor ? <TableDisplay title="Doctors" data={doctors} /> : ""
+                }
                 {showEmployee ? <TableDisplay title="Employees" data={employees} /> : ""}
                 {showdepartment ? <TableDisplay title="Depatment" data={department} /> : ""}
                 {showPatient ? <TableDisplay title="Patients" data={patients} /> : ""}
                 {showAdmission ? <TableDisplay title="Admission/Discharge Records" data={admissions} /> : ""}
                 {showAppointments ? <TableDisplay title="All Appointments Records" data={appointment} /> : ""}
-            </div>
+            </div >
         </>
     );
 };
@@ -287,10 +306,19 @@ const ActionButton = ({ icon, label, onClick }) => (
     </div>
 );
 
-// Table Display
 const TableDisplay = ({ title, data }) => {
     if (!data || data.length === 0) return null;
-    const columns = Object.keys(data[0]);
+
+    // Get all columns
+    const allColumns = Object.keys(data[0]);
+
+    // Find profile image column (case-insensitive match)
+    const profileCol = allColumns.find(col => col.toLowerCase().includes("profileimage"));
+
+    // Reorder columns: profile first, then rest
+    const columns = profileCol
+        ? [profileCol, ...allColumns.filter(col => col !== profileCol)]
+        : allColumns;
 
     return (
         <div className="mt-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -300,7 +328,9 @@ const TableDisplay = ({ title, data }) => {
                     <thead className="bg-blue-100">
                         <tr>
                             {columns.map((col, idx) => (
-                                <th key={idx} className="px-4 py-2 text-left border">{col.charAt(0).toUpperCase() + col.slice(1)}</th>
+                                <th key={idx} className="px-4 py-2 text-left border">
+                                    {col.charAt(0).toUpperCase() + col.slice(1)}
+                                </th>
                             ))}
                         </tr>
                     </thead>
@@ -308,7 +338,19 @@ const TableDisplay = ({ title, data }) => {
                         {data.map((row, i) => (
                             <tr key={i} className={`border-t ${i % 2 === 0 ? "bg-green-100" : "bg-white"}`}>
                                 {columns.map((col, j) => (
-                                    <td key={j} className={`px-4 py-2 text-sm border `}>{col.includes("Date") ? row[col].split("T")[0] : row[col]}</td>
+                                    <td key={j} className="px-4 py-2 text-sm border">
+                                        {col.toLowerCase().includes("profileimage") ? (
+                                            <img
+                                                src={row[col]}
+                                                alt="Profile"
+                                                className="w-16 h-16 object-cover rounded-full"
+                                            />
+                                        ) : col.toLowerCase().includes("date") ? (
+                                            row[col]?.split("T")[0]
+                                        ) : (
+                                            row[col]
+                                        )}
+                                    </td>
                                 ))}
                             </tr>
                         ))}
@@ -318,5 +360,7 @@ const TableDisplay = ({ title, data }) => {
         </div>
     );
 };
+
+
 
 export default AdminDashboard;

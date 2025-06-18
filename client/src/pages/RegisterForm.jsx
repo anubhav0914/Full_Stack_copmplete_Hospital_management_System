@@ -177,7 +177,7 @@ export default function RegisterForm() {
               <button
                 type="submit"
                 disabled={loading}
-                className={`w-full text-white py-2 rounded-md transition ${loading ? 'bg-blue-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'}`}
+                className={`w-full text-white py-2 rounded-md transition cursor-pointer hover:to-blue-800 ${loading ? 'bg-blue-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-800'}`}
               >
                 {loading ? "Registering..." : "Register"}
               </button>
@@ -212,11 +212,10 @@ export default function RegisterForm() {
                   d="M4 12a8 8 0 018-8v8H4z"
                 ></path>
               </svg>
-              <p className="text-blue-700 font-semibold text-center">Registering doctor... Please Wait</p>
+              <p className="text-blue-700 font-semibold text-center ">Registering ... Please Wait</p>
             </div>
           </div>
         )}
-        {loading ? "Register....." : "Register"}
       </div>
     </>
   );

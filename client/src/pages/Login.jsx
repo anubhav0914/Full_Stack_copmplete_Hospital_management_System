@@ -59,18 +59,19 @@ const Login = () => {
         <ToastContainer position="top-right" autoClose={2000} />
       <div className='pt-30 mb-30'>
 
-        <div className="max-w-md mx-auto  bg-white shadow-lg rounded-lg p-8">
+        <div className="max-w-md mx-auto  bg-white shadow-xl/20 rounded-lg p-8">
           <h2 className="text-2xl font-bold mb-6 text-center text-blue-700"> Login</h2>
 
           <form className="space-y-6" onSubmit={handleSubmit}>
             {/* Email */}
             <div>
-              <label className="block text-sm font-medium text-gray-700">Email</label>
+              <label className="block text-[18px] font-medium text-gray-700">Email</label>
               <input
                 type="email"
                 name="email"
                 value={email}
                 required
+                placeholder='example@gmail.com'
                 onChange={e => setEmail(e.target.value)}
                 className="mt-1 w-full border rounded-md p-2"
               />
@@ -78,20 +79,22 @@ const Login = () => {
 
             {/* Password */}
             <div>
-              <label className="block text-sm font-medium text-gray-700">Password</label>
+              <label className="block text-[18px] font-medium text-gray-700">Password</label>
               <input
                 type="password"
                 name="password"
                 value={password}
                 required
+                placeholder='xxxxxxxx'
+
                 onChange={e => setPassword(e.target.value)}
-                className="mt-1 w-full border rounded-md p-2"
+                className="mt-1 w-full border rounded-md p-2 "
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">Login as</label>
-              <select value={role} onChange={e => setRole(e.target.value)}>
+              <label className="block text-[18px] font-medium text-gray-700">Login as</label>
+              <select value={role} className='border-2 rounded-[10px] w-full h-10' onChange={e => setRole(e.target.value)}>
                 <option value="patient">Patient</option>
                 <option value="doctor">Doctor</option>
                 <option value="employee">Employee</option>
@@ -102,7 +105,7 @@ const Login = () => {
             <div>
               <button
                 type="submit"
-                className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
+                className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-800 transition cursor-pointer"
               >
                 Login
               </button>

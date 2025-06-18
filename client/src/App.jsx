@@ -22,6 +22,7 @@ import AdminDashboard from './components/AdminDashboard.jsx';
 import DoctorRegisterForm from './pages/DoctorRegisterForm.jsx';
 import EmployeeRegisterForm from './components/EmployeeRegister.jsx';
 import BillSection from './pages/BillSection.jsx';
+import OtpVerificationPage from './pages/OtpVerification.jsx';
 
 function App() {
   return (
@@ -51,6 +52,7 @@ function App() {
             <Route path='/register' element={<RegisterForm />} />
             <Route path='/all-doctors' element={<Doctors />} />
             <Route path='/unauthorized' element={<Unauthorized />} />
+            <Route path='/otp-verificaton' element={<OtpVerificationPage />} />
 
             <Route path='/single-doctor-details' element={<SingleDoctorDetails />} />
             <Route path='/admin-login' element={<AdminLogin />} />

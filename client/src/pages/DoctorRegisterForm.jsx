@@ -40,7 +40,20 @@ export default function DoctorRegisterForm() {
         departmentId: '',
         password: ''
     });
-
+    
+    const isFormReady = [
+        formData.firstName &&
+        formData.lastName &&
+        formData.specialization && 
+        formData.phoneNumber &&  email,
+        formData.qualification &&
+        formData.experienceYear &&
+        formData.joiningDate &&
+        formData.availability &&
+        formData.departmentId &&
+        formData.password &&
+        image
+    ]
     const handleChange = (e) => {
         const { name, value, type } = e.target;
         setFormData(prev => ({
@@ -169,7 +182,9 @@ export default function DoctorRegisterForm() {
                         </div>
 
                         <div className="md:col-span-2 pt-4">
-                            <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition" onClick={() => setLoading(true)}>
+                            <button type="submit"
+                             disabled={!isFormReady}
+                             className=" cursor-pointer w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition" onClick={() => setLoading(true)}>
                                 {loading && (
                                     <div className="fixed top-1/2 left-1/2 z-50 transform -translate-x-1/2 -translate-y-1/2 opacity-125">
                                         <div className="w-64 h-64 bg-white/80 backdrop-blur-md rounded-xl shadow-xl flex flex-col items-center justify-center space-y-4">

@@ -62,6 +62,7 @@ namespace Hospital.Bussiness.Services
             
                 var doctor = new Doctor
                 {
+                    ProfileImage = imgUrl,
                     FirstName = reqModel.FirstName,
                     LastName = reqModel.LastName,
                     Specialization = reqModel.Specialization,
@@ -71,7 +72,6 @@ namespace Hospital.Bussiness.Services
                     ExperienceYear = reqModel.ExperienceYear,
                     JoiningDate = reqModel.JoiningDate,
                     Availability = reqModel.Availability,
-                    ProfileImage = imgUrl,
                     DepartmentId = reqModel.DepartmentId,
                     Password = BCrypt.Net.BCrypt.HashPassword(reqModel.Password)
                 };
@@ -172,7 +172,7 @@ namespace Hospital.Bussiness.Services
                 {
                     Status = false,
                     StatusCode = 404,
-                    Message = "No Patient with this Id",
+                    Message = "No Doctor with this Id",
                     Data = null
                 };
             }

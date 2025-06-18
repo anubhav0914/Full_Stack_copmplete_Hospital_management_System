@@ -27,21 +27,21 @@ public class BillingTransactionConfiguration : IEntityTypeConfiguration<BillingT
         builder.HasOne(b => b.Patient)
             .WithMany(p => p.BillingTransactions)
             .HasForeignKey(b => b.PatientId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.Restrict);
 
             // Foreign Key: Doctor
             builder.HasOne(b => b.Doctor)
                 .WithMany(d => d.BillingTransactions)
                 .HasForeignKey(b => b.DoctorId)
             .IsRequired()
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.Restrict);
 
         // Foreign Key: Appointment
         builder.HasOne(b => b.Appointment)
             .WithMany()
             .HasForeignKey(b => b.AppointmentId)
             
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }
 }

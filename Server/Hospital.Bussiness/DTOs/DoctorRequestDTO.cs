@@ -16,7 +16,7 @@ namespace Hospital.Bussiness.DTOs
         public List<DayOfWeek> Availability { get; set; }
         public int? DepartmentId { get; set; }
         public string Password { get; set; }
-
         public IFormFile Image { get; set; }
+
     }
 }

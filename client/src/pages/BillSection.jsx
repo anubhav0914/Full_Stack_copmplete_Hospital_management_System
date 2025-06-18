@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import api from '../api/axios';
 import { toast, ToastContainer } from 'react-toastify';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 export default function BillSection() {
     const [showForm, setShowForm] = useState(false);
@@ -10,6 +11,7 @@ export default function BillSection() {
     const [doctors, setDoctors] = useState([]);
     const [patients, setPatients] = useState([]);
     const [appointments, setAppointments] = useState([]);
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         patientId: 0,

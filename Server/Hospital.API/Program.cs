@@ -13,6 +13,8 @@ using Hpospital.Bussiness.Services.MailServices;
 using Hospital.Business.Cloudnary;
 using Hospital.Business.Services.ImageService;
 using CloudinaryDotNet;
+using Hospital.Bussiness.Services.OTPServices;
+using Hospital.Business.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -39,6 +41,8 @@ builder.Services.AddScoped<IDoctorServices, DoctorServices>();
 builder.Services.AddScoped<IImageService, ImageService>();
 
 builder.Services.AddScoped<IAppointmentServices, AppointmentServices>();
+builder.Services.AddScoped<IOTPRepository, OTPRepository>();
+builder.Services.AddScoped<IOTPService, OTPService>();
 builder.Services.AddScoped<IDepartmentServices, DepartmentServices>();
 builder.Services.AddScoped<IBillingTransicationServices, BillingTransicationServices>();
 builder.Services.AddScoped<IAdmissionDischargeServices, AdmissionDischargeServices>();

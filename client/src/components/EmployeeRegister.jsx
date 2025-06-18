@@ -4,7 +4,7 @@ import Footer from '../components/Footer';
 import { useNavigate } from 'react-router-dom';
 import api from '../api/axios';
 import { useAuth } from '../auth/AuthProvider';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 
 export default function EmployeeRegisterForm() {
     const navigate = useNavigate();
@@ -101,6 +101,7 @@ export default function EmployeeRegisterForm() {
     return (
         <>
             <div className='p-8 md:p-20 mt-20'>
+                <ToastContainer autoClose={2000}></ToastContainer>
                 <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-10 relative">
 
                     <button

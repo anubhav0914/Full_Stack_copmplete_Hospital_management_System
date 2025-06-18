@@ -2,6 +2,7 @@ namespace Hospital.Persistence.Models
 {
     public class EmployeeStaffDTO
     {
+        public string ProfileImage { get; set; }
         public int EmpId { get; set; }
         public int? DepartmentId { get; set; }
         public string FirstName { get; set; }
@@ -11,7 +12,6 @@ namespace Hospital.Persistence.Models
         public string Email { get; set; }
         public string Role { get; set; }
         public int Salary { get; set; }
-        public string ProfileImage { get; set; }
 
         public DateTime JoiningDate { get; set; }
 

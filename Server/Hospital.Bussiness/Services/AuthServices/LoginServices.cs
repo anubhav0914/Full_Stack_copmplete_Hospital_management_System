@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using Hospital.Persistence.Repository.TableRepository;
 using Hospital.Bussiness.Services.AuthServices;
+using Hospital.Bussiness.Services.OTPServices;
 
 
 namespace Hospital.Bussiness.Services.AuthServices
@@ -18,9 +19,7 @@ namespace Hospital.Bussiness.Services.AuthServices
         private readonly IDoctorRepository _doctorRepository;
         private readonly IEmployeeStaffRepository _employeestaffRepository;
         private readonly IAdminRepository _adminRepository;
-
-
-
+        private readonly IOTPService _otpServices;
         private readonly ITokenServices _tokenServices;
 
 
@@ -29,7 +28,8 @@ namespace Hospital.Bussiness.Services.AuthServices
              IDoctorRepository doctorRepository,
              IEmployeeStaffRepository employeestaffRepository,
              IAdminRepository adminRepository,
-             ITokenServices tokenServices
+             ITokenServices tokenServices,
+             IOTPService otpServices
              )
         {
             _patinetRepository = patinetRepository;
@@ -37,6 +37,7 @@ namespace Hospital.Bussiness.Services.AuthServices
             _employeestaffRepository = employeestaffRepository;
             _tokenServices = tokenServices;
             _adminRepository = adminRepository;
+            _otpServices = otpServices;
         }
 
         public async Task<LoginResponse> Login(LoginRequestDTO loginDTO)
@@ -150,26 +151,60 @@ namespace Hospital.Bussiness.Services.AuthServices
 
                 };
             }
-            int id = admin.AdminId;
-            var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.NameIdentifier, id.ToString()),
-                    new Claim(ClaimTypes.Email, admin.Email!),
-                    new Claim(ClaimTypes.Role, "admin") 
-
-                };
-
-            var Jwttoken = _tokenServices.GenerateToken(claims);
+            // sending opt here 
+            await _otpServices.GenerateOtpAsync(admin.Email, admin.Username);
 
             return new LoginResponse
             {
                 Status = true,
                 StatusCode = 200,
-                Message = "Logged in successfully",
-                JwtToken = Jwttoken,
+                Message = "OTP has been sent  successfully",
+                JwtToken = "",
 
             };
         }
 
+
+        public async Task<LoginResponse> AdminLoginOtpVerification(OTPDTO otpDto)
+        {
+
+            // sending opt here 
+            var admin = await _adminRepository.GetByEmailAsync(otpDto.Email);
+
+            var isCorrect = await _otpServices.VerifyOtpAsync(otpDto.Email, otpDto.Otp);
+
+            if (isCorrect)
+            {
+
+                int id = admin.AdminId;
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.NameIdentifier, id.ToString()),
+                    new Claim(ClaimTypes.Email, admin.Email!),
+                    new Claim(ClaimTypes.Role, "admin")
+
+                };
+
+                var Jwttoken = _tokenServices.GenerateToken(claims);
+
+                return new LoginResponse
+                {
+                    Status = true,
+                    StatusCode = 200,
+                    Message = "Logged in successfully",
+                    JwtToken = Jwttoken,
+
+                };
+            }
+            
+            return new LoginResponse
+            {
+                Status = false,
+                StatusCode = 401,
+                Message = "Entered OTP is wrong",
+                JwtToken = "",
+
+            };
+        }
     }
 }

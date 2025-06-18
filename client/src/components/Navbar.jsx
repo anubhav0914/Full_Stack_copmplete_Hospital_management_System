@@ -16,9 +16,9 @@ function Navbar() {
     const getdata = async()=>{
 
       try {
-        if (user?.email) {
+        if (user) {
           if(user.role =="patient"){
-            await api.get(`/Patient/getByEmail/${user.id}`)
+            await api.get(`/Patient/getById/${user.id}`)
             .then(res => setProfile(res.data.data))
             .catch(err => console.error('Profile fetch failed', err));
           }
@@ -34,11 +34,11 @@ function Navbar() {
           }
         }
       } catch (error) {
-          
+          console.log(err.message)
       }
     }
     getdata();
-  },[user?.email]);
+  },[]);
 
   const handleLogout = () => {
     toast.info(

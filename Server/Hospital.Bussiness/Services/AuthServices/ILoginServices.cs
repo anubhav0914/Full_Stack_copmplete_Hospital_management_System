@@ -8,6 +8,9 @@ namespace Hospital.Bussiness.Services.AuthServices
     {
         Task<LoginResponse> Login(LoginRequestDTO loginDTO);
         Task<LoginResponse> AdminLogin(AdminloginDTO loginDTO);
+        Task<LoginResponse> AdminLoginOtpVerification(OTPDTO oTPDTO);
+
+        
 
 
     }

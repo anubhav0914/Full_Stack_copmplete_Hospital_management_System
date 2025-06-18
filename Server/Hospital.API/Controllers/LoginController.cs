@@ -35,5 +35,12 @@ namespace Hospital.API.Controllers
             var result = await _services.AdminLogin(loginRequestDTO);
             return result.Status ? Ok(result) : BadRequest(result);
         }
+        [HttpPost]
+        [Route("AdminloginOTPVerification")]
+        public async Task<ActionResult> AdminLoginOtpVerification([FromBody] OTPDTO otpdtp)
+        {
+            var result = await _services.AdminLoginOtpVerification(otpdtp);
+            return result.Status ? Ok(result) : BadRequest(result);
+        }
     }
 }

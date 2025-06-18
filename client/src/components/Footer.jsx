@@ -50,7 +50,6 @@ export default function Footer() {
               </li>
             </ul>
           </div>
-
           <div>
             <h3 className="text-sm font-semibold uppercase tracking-wider">Contact Info</h3>
             <ul className="mt-4 space-y-4">

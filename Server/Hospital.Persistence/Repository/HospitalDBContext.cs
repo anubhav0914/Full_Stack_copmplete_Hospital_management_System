@@ -20,6 +20,7 @@ namespace Hospital.Persistence.Repository
 
         public DbSet<EmployeeStaff> EmployeeStaffs { get; set; }
         public DbSet<Admin> Admins { get; set; }
+        public DbSet<OTPModel> OtpEntries { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -33,6 +34,8 @@ namespace Hospital.Persistence.Repository
             modelBuilder.ApplyConfiguration(new AdmissionDischargeConfiguration());
             modelBuilder.ApplyConfiguration(new EmployeeStaffConfiguration());
             modelBuilder.ApplyConfiguration(new AdminConfiguration());
+            modelBuilder.ApplyConfiguration(new OTPModelConfiguration());
+
 
             modelBuilder.Entity<Admin>().HasData(
                 new Admin
@@ -49,9 +52,9 @@ namespace Hospital.Persistence.Repository
                     Email = "pucchu.csce22@gmail.com",
                     PasswordHash = "$2a$12$7RE.99TIQKIQZzJwli0YL.etFh3Y8QG1QTQUQvEwORv5TXjP0eaNa" // Pucchu@0914
                 });
-            
 
-            
+
+
         }
     }
 }

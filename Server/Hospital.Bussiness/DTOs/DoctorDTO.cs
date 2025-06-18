@@ -2,6 +2,7 @@ namespace Hospital.Bussiness.DTOs
 {
     public class DoctorDTO
     {
+        public string ProfileImage { get; set; }
         public int DoctorId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -11,7 +12,6 @@ namespace Hospital.Bussiness.DTOs
         public string Qualification { get; set; } 
         public int ExperienceYear { get; set; }
         public DateTime JoiningDate { get; set; }
-        public string ProfileImage { get; set; }
 
         public List<DayOfWeek> Availability { get; set; } 
         public int? DepartmentId { get; set; }
